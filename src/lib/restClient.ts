@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { AxiosError, AxiosInstance } from 'axios'
+import axios, {AxiosError, AxiosInstance} from 'axios';
 import { SObject } from './sObjects'
 
 //passed in via global scope
