@@ -19,3 +19,13 @@ Demo showing how to use typescript to create client side react apps in Salesforc
 1. change something & save
 
 1. page will be updated
+
+## TODO
+
+- Make react example more complete
+- Add webpack hotswapping
+- migrate SF meta-data to use sfdx app
+- add code gen tool to generate sObject types from meta-data API
+- move SObject client to its own package
+  - add bulk API support
+  - add RemoteAction support
