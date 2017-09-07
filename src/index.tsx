@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {RestClient} from './lib/RestClient';
-import {Account} from './lib/SObjects';
+import {RestClient} from './lib/restClient';
+import {Account} from './lib/sObjects';
 
 import {AccountItem} from './accountItem'
 
