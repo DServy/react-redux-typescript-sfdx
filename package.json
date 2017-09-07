@@ -26,8 +26,8 @@
   },
   "scripts": {
     "build": "webpack --config config/webpack.config.js && npm run prepare",
-    "prepare": "cp dist/app.js build/package/StaticResources/App.resource && cp -r src/salesforce/* build/package",
-    "push": "ant deploy -buildfile build -Ddir build/package",
+    "prepare": "cp dist/app.js sfdx-build/package/StaticResources/App.resource && cp -r src/salesforce/* sfdx-build/package",
+    "push": "ant deploy -buildfile sfdx-build -Ddir sfdx-build/package",
     "deploy": "npm run build && npm run push",
     "start": "webpack-dev-server --config config/webpack.config.js --https"
   },
