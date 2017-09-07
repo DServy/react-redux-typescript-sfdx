@@ -1,0 +1,68 @@
+<project name="Sample usage of Salesforce Ant tasks" default="test" basedir="." xmlns:sf="antlib:com.salesforce">
+
+	<!-- Force load salesforce library.  On linux servers I was having issues with
+		 the ant class loader not processing the salesforce task defintions
+		 and this seems to work regardless of whether the initial load worked
+		 See http://stackoverflow.com/q/16379247/84130
+	-->
+	<taskdef resource="com/salesforce/antlib.xml" classpath="/Users/jonas/Documents/mm/ant/ant-salesforce.jar" uri="antlib:com.salesforce"/>
+
+
+
+	<condition property="buildFile" value="${prop}" else="build.properties">
+		<isset property="prop"/>
+	</condition>
+
+	<property file="${buildFile}"/>
+	<property environment="env"/>
+
+	<target name="deploy">
+	  <echo message="Deploying ${dir} from ${sf.username}"/>
+		<sf:deploy username="${sf.username}"
+							 password="${sf.password}"
+							 serverurl="${sf.serverurl}"
+							 deployRoot="${dir}"
+							 runAllTests="false"
+							 maxPoll="300"/>
+	</target>
+
+	<target name="test">
+		<echo message="Testing ${dir} from ${sf.username}"/>
+		<sf:deploy username="${sf.username}"
+							 password="${sf.password}"
+							 serverurl="${sf.serverurl}"
+							 deployRoot="${dir}"
+							 runAllTests="false"
+							 checkOnly="true"
+							 maxPoll="300"/>
+	</target>
+
+	<target name="retrieve">
+	  <echo message="Retriving ${dir} from ${sf.username}"/>
+		<sf:retrieve username="${sf.username}"
+				password="${sf.password}"
+				serverurl="${sf.serverurl}"
+				retrieveTarget="${dir}"
+				unpackaged="${dir}/package.xml"
+				maxPoll="1000"
+				pollWaitMillis="5000"
+				/>
+	</target>
+
+	<target name="bulk">
+		<sf:bulkRetrieve username="${sf.username}"
+				password="${sf.password}"
+				serverurl="${sf.serverurl}"
+				retrieveTarget="${dir}"
+				metadataType="${type}"/>
+	</target>
+
+	<target name="list">
+	    <sf:listMetadata username="${sf.username}"
+	        password="${sf.password}"
+	        serverurl="${sf.serverurl}"
+	        metadataType="${t}"
+	        resultFilePath="list-${t}.txt"/>
+	</target>
+
+</project>
