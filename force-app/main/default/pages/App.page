@@ -1,8 +1,8 @@
 <apex:page showHeader="true" sidebar="false">
     <script type="text/javascript">
         //rest details
-        const accessToken = '{!$Api.Session_ID}';
-        const baseUrl = '';
+        const __ACCESSTOKEN__ = '{!$Api.Session_ID}';
+        const __RESTHOST__ = '';
     </script>
 
     <div id="root"></div>

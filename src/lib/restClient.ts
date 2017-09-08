@@ -2,8 +2,8 @@ import axios, {AxiosError, AxiosInstance} from 'axios';
 import { SObject } from './sObjects'
 
 //passed in via global scope
-declare var accessToken: string;
-declare var baseUrl: string;
+declare var __ACCESSTOKEN__: string;
+declare var __RESTHOST__: string;
 
 interface QueryResponse<T> {
     totalSize: number;
@@ -20,13 +20,15 @@ export class RestClient
     {
         this.version = 'v40.0'
         this.request = axios.create({
-            baseURL:`${baseUrl}/services/data/${this.version}/`,
+            baseURL: `${__RESTHOST__}/services/data/${this.version}/`,
             headers: {
-                'Authorization': 'Bearer ' + accessToken,
+                'Authorization': 'Bearer ' + __ACCESSTOKEN__,
                 'Content-Type': 'text/plain',
                 'Accept': 'text/plain'
             }
         });
+
+        console.log(__ACCESSTOKEN__);
     }
 
     //get records of type T.  Do magic to cast plain json to T

@@ -2,6 +2,12 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require("path");
 
+var child_process = require('child_process');
+var orgInfo = JSON.parse(child_process.execSync("sfdx force:org:display --json").toString('utf8'));
+console.log(orgInfo);
+console.log(orgInfo.result.accessToken);
+
+
 module.exports = {
 	devtool: 'cheap-module-source-map',
 	entry: [
@@ -35,7 +41,12 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			inject: true,
 			template: 'dev-index.html'
-		})
+        }),
+		new webpack.DefinePlugin( //inject global
+        {
+            '__ACCESSTOKEN__': JSON.stringify(orgInfo.result.accessToken),
+            '__RESTHOST__':JSON.stringify('https://dry-taiga-29622.herokuapp.com')
+		}),
 	],
 	devServer: {
         hot: true,

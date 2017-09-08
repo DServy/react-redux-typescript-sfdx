@@ -19,10 +19,17 @@
   },
   "scripts": {
     "start": "webpack-dev-server --watch-poll --https",
-    "build-react": "webpack && cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
+    "start-hot": "webpack-dev-server --config webpack.hot.config.js --https",
+    "build-react-dev": "webpack && cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
+    "build-react-prod": "webpack --config webpack.prod.config.js && cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
     "build-sfdx": "sfdx force:source:convert -d ./dist/sfdc-package",
-    "build": "npm run build-react && npm run build-sfdx",
-    "deploy": "sfdx force:mdapi:deploy -d ./dist/sfdc-package -w 1000"
+    "build-dev": "npm run build-react-dev && npm run build-sfdx",
+    "build-prod": "npm run build-react-prod && npm run build-sfdx",
+    "push-dev": "sfdx force:mdapi:deploy -d ./dist/sfdc-package -w 1000",
+    "push-prod": "sfdx force:mdapi:deploy -u production -d ./dist/sfdc-package -w 1000",
+    "deploy-dev": "npm run build-dev && npm run push-dev",
+    "deploy-prod": "npm run build-prod && npm run push-prod",
+    "get-token": "sfdx force:org:display"
   },
   "dependencies": {
     "@types/react": "^15.0.6",

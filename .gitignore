@@ -2,3 +2,4 @@ node_modules
 dist
 npm-debug.log
 .sfdx
+force-app/main/default/staticresources/App.resource
