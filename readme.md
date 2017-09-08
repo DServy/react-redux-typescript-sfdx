@@ -2,9 +2,11 @@
 
 Demo showing how to use typescript to create client side react apps in Salesforce Visualforce pages
 
-## Dev Setup
+## setup
 
-### setup sfdx
+### sfdx cli
+
+SFDX is used to compile and push metadata to salesforce. Optionally, you can develop against scratch orgs.
 
 1. install the [sfdx cli](https://developer.salesforce.com/tools/sfdxcli)
 
@@ -13,6 +15,8 @@ Demo showing how to use typescript to create client side react apps in Salesforc
 ### install
 
 1. clone
+
+1. cd
 
 1. `npm install`
 
