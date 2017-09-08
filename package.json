@@ -28,7 +28,7 @@
   },
   "scripts": {
     "postinstall": "mkdir sfdx-build/package/pages sfdx-build/package/staticresources || true",
-    "build": "webpack --config config/webpack.config.js && npm run prepare",
+    "build": "webpack --config config/webpack.config.js && npm run copy",
     "copy": "cp dist/app.js sfdx-build/package/StaticResources/App.resource && cp -r src/salesforce/* sfdx-build/package",
     "push": "ant deploy -buildfile sfdx-build -Ddir sfdx-build/package",
     "deploy": "npm run build && npm run push",
