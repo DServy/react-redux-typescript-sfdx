@@ -19,17 +19,25 @@
   },
   "scripts": {
     "start": "webpack-dev-server --watch-poll --https",
-    "start-hot": "webpack-dev-server --config webpack.hot.config.js --https",
-    "build-react-dev": "webpack && cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
-    "build-react-prod": "webpack --config webpack.prod.config.js && cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
-    "build-sfdx": "sfdx force:source:convert -d ./dist/sfdc-package",
-    "build-dev": "npm run build-react-dev && npm run build-sfdx",
-    "build-prod": "npm run build-react-prod && npm run build-sfdx",
+    "start-local": "webpack-dev-server --config webpack.local.config.js --https",
+
+    "new-scratch-org": "sfdx force:org:create -f config/project-scratch-def.json -a scratch",
+
+    "bundle-app-dev": "webpack && npm run copy-bundle",
+    "bundle-ap-prod": "webpack --config webpack.prod.config.js && npm run copy-bundle",
+    "copy-bundle": "cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
+
+    "package-sfdc": "sfdx force:source:convert -d ./dist/sfdc-package",
+    "build-dev": "npm run bundle-app-dev && npm run package-sfdc",
+    "build-prod": "npm run bundle-ap-prod && npm run package-sfdc",
     "push-dev": "sfdx force:mdapi:deploy -d ./dist/sfdc-package -w 1000",
+
+    "push-scratch": "sfdx force:source:push -u scratch",
     "push-prod": "sfdx force:mdapi:deploy -u production -d ./dist/sfdc-package -w 1000",
+
     "deploy-dev": "npm run build-dev && npm run push-dev",
-    "deploy-prod": "npm run build-prod && npm run push-prod",
-    "get-token": "sfdx force:org:display"
+    "deploy-scratch": "npm run build-dev && npm run push-scratch",
+    "deploy-prod": "npm run build-prod && npm run push-prod"
   },
   "dependencies": {
     "@types/react": "^15.0.6",
