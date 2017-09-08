@@ -23,8 +23,8 @@ export class RestClient
             baseURL: `${__RESTHOST__}/services/data/${this.version}/`,
             headers: {
                 'Authorization': 'Bearer ' + __ACCESSTOKEN__,
-                'Content-Type': 'text/plain',
-                'Accept': 'text/plain'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
         });
 

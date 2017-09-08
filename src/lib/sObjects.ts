@@ -30,12 +30,12 @@ export class SObjectClient extends SObject{
     }
 
     public insert(): Promise<DMLResponse> {
-
         return new Promise<DMLResponse>((resolve, reject) => {
             RestClient.Instance.request.post(
                 `/sobjects/${this.attributes.type}/`,
                 this
             ).then((response) => {
+                this.Id = response.data.id; //crap i think we need to call setState();
                 resolve(response.data);
             }).catch((error: AxiosError) => {
                 console.log(error.response.data);
@@ -44,9 +44,7 @@ export class SObjectClient extends SObject{
         });
     }
 
-
     public update(): Promise<DMLResponse> {
-
         if (this.Id == null) {
             throw 'Must have Id to update!';
         }
@@ -58,6 +56,8 @@ export class SObjectClient extends SObject{
                 `/sobjects/${this.attributes.type}/${this.Id}?_HttpMethod=PATCH`,
                 data
             ).then((response) => {
+                console.log('update successful');
+                console.log(response);
                 resolve(response.data);
             }).catch((error: AxiosError) => {
                 console.log(error.response.data);

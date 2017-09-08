@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --watch-poll --https",
-    "start-local": "webpack-dev-server --config webpack.local.config.js --https",
+    "start-local": "webpack-dev-server --config webpack.local.config.js",
 
     "new-scratch-org": "sfdx force:org:create -f config/project-scratch-def.json -a scratch",
 
