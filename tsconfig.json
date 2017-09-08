@@ -1,18 +1,9 @@
 {
-  "compilerOptions": {
-    "module": "es6",
-    "target": "es6",
-    "moduleResolution": "node",
-    "baseUrl": "src",
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "outDir": "ts-build",
-    "jsx": "preserve"
-  },
-  "exclude": [
-    "node_modules",
-    "build",
-    "src/salesforce"
-  ]
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es6",
+        "jsx": "react",
+        "sourceMap": true,
+        "moduleResolution": "node"
+    }
 }

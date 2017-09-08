@@ -1,5 +1,5 @@
 node_modules
 dist
 npm-debug.log
-sfdx-build/build.properties
-sfdx-build/package
+.sfdx
+force-app/main/default/staticresources/App.resource
