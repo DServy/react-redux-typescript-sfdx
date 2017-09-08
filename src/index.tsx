@@ -1,64 +1,28 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {RestClient} from './lib/restClient';
-import {Account} from './lib/sObjects';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import App from './app';
 
-import {AccountItem} from './accountItem'
+ReactDOM.render(
+    <AppContainer>
+        <App />
+    </AppContainer>,
+    document.getElementById('root') as HTMLElement
+);
 
-
-interface IAppProps {
-    // remoteObjectModel: RemoteObjectModel
+interface RequireImport {
+    default: any;
 }
 
-interface IAppState {
-    accounts: Account[]
+if (module.hot) {
+    module.hot.accept('./app', () => {
+        console.log('doing a app hot accept')
+        const NextApp = require<RequireImport>('./app').default
+        ReactDOM.render(
+            <AppContainer>
+                <NextApp />
+            </AppContainer>,
+            document.getElementById('root')
+        );
+    });
 }
-
-
-export class App extends React.Component<IAppProps, IAppState>{
-
-    constructor(props: IAppProps) {
-        super(props);
-
-        this.state = {
-            accounts: []
-        }
-    }
-
-    public createNewAccount(){
-        let acc = new Account();
-        acc.Name = 'blah blah';
-        acc.Website = 'google.com';
-        acc.insert();
-
-
-        this.state.accounts.push(acc);
-        this.setState({accounts: this.state.accounts}); //not sure this is correct...
-    }
-
-    // load accounts
-    public componentDidMount(){
-        RestClient.query<Account>(Account, 'SELECT Id, Name, Website, Active__c FROM Account ORDER BY Name LIMIT 10')
-        .then((response) => {
-            this.setState({accounts: response.records});
-        });
-
-    }
-
-    public render() {
-
-        return (
-            <div>
-                {
-                    this.state.accounts.map((acc, index) => {
-                        return <AccountItem account={acc} />
-                    })
-                }
-                <button onClick={this.createNewAccount} >Create New Account</button>
-            </div>
-        )
-    }
-}
-
-
-ReactDOM.render(<App />, document.getElementById('app'))

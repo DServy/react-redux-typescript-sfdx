@@ -3,6 +3,7 @@ import { SObject } from './sObjects'
 
 //passed in via global scope
 declare var accessToken: string;
+declare var baseUrl: string;
 
 interface QueryResponse<T> {
     totalSize: number;
@@ -19,14 +20,12 @@ export class RestClient
     {
         this.version = 'v40.0'
         this.request = axios.create({
-            baseURL:`/services/data/${this.version}/`,
+            baseURL:`${baseUrl}/services/data/${this.version}/`,
             headers: {
-                'X-Requested-With': 'XMLHttpRequest',
                 'Authorization': 'Bearer ' + accessToken,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            responseType: 'json'
+                'Content-Type': 'text/plain',
+                'Accept': 'text/plain'
+            }
         });
     }
 
