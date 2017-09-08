@@ -1,28 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import App from './app';
+import App from './App';
+//import bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+//import base css
+import './css/index.css';
 
 ReactDOM.render(
-    <AppContainer>
-        <App />
-    </AppContainer>,
-    document.getElementById('root') as HTMLElement
+  <App />,
+  document.getElementById('root')
 );
-
-interface RequireImport {
-    default: any;
-}
-
-if (module.hot) {
-    module.hot.accept('./app', () => {
-        console.log('doing a app hot accept')
-        const NextApp = require<RequireImport>('./app').default
-        ReactDOM.render(
-            <AppContainer>
-                <NextApp />
-            </AppContainer>,
-            document.getElementById('root')
-        );
-    });
-}
