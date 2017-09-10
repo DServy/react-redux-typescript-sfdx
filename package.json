@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --watch-poll --https",
-    "start-local": "webpack-dev-server --config webpack.local.config.js",
+    "start-local": "webpack-dev-server --https --config webpack.local.config.js",
     "new-scratch-org": "sfdx force:org:create -f config/project-scratch-def.json -a scratch",
 
     "make-scratch-default": "sfdx force:config:set defaultusername=scratch",
@@ -29,14 +29,12 @@
     "make-prod-default": "sfdx force:config:set defaultusername=prod",
     
     "bundle-app-dev": "webpack && npm run copy-bundle",
-    "bundle-ap-prod": "webpack --config webpack.prod.config.js && npm run copy-bundle",
+    "bundle-app-prod": "webpack --config webpack.prod.config.js && npm run copy-bundle",
     "copy-bundle": "cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
     "package-sfdc": "sfdx force:source:convert -d ./dist/sfdc-package",
     "build-dev": "npm run bundle-app-dev && npm run package-sfdc",
-    "build-prod": "npm run bundle-ap-prod && npm run package-sfdc",
-
-    "push-dev": "sfdx force:mdapi:deploy -u dev -d ./dist/sfdc-package -w 1000",
-
+    "build-prod": "npm run bundle-app-prod && npm run package-sfdc",
+    "push-dev": "sfdx force:mdapi:deploy -d ./dist/sfdc-package -w 1000",
     "push-scratch": "sfdx force:source:push -u scratch",
     "push-prod": "sfdx force:mdapi:deploy -u production -d ./dist/sfdc-package -w 1000",
     "deploy-dev": "npm run build-dev && npm run push-dev",
@@ -44,10 +42,24 @@
     "deploy-prod": "npm run build-prod && npm run push-prod"
   },
   "dependencies": {
-    "@types/react": "^15.0.6",
-    "@types/react-dom": "^0.14.22",
+    "@types/enzyme": "^2.8.0",
+    "@types/jest": "^19.2.3",
+    "@types/node": "^7.0.21",
+    "@types/react": "^15.0.24",
+    "@types/react-dom": "^15.5.0",
+    "@types/react-redux": "^4.4.40",
+    "@types/redux-logger": "^3.0.0",
+    "@types/redux-mock-store": "0.0.7",
+    "@types/redux-promise-middleware": "0.0.6",
     "axios": "^0.16.2",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "bootstrap": "^3.3.7",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.1",
+    "redux-promise-middleware": "^4.2.0",
+    "redux-thunk": "^2.2.0",
+    "ts-force": "^1.0.2"
   }
 }

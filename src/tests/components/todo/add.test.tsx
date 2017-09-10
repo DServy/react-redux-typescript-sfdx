@@ -2,6 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store'
 import Add  from '../../../components/todo/add';
+import { Task } from '../../../objects/sObjects';
 // import the reducer state type
 import { GlobalState } from '../../../reducers/index'
 // import the action states
@@ -27,7 +28,7 @@ it('should handle event', () => {
     // expected action value
     let action: AddTodoAction = {
         type: 'ADD_TODO',
-        add: 'hello'
+        add: new Task()
     }
     expect(store.getActions()).toEqual([action])
 })
