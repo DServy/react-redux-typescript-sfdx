@@ -27,6 +27,10 @@ module.exports = {
 				test: /\.css$/,
 				loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
 			},
+			{
+				test: /.woff|.woff2|.svg|.eot|.ttf/,
+				use: 'url-loader?prefix=font/&limit=10000'
+			}
 		]
 	},
 	plugins: [

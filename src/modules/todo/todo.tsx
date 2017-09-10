@@ -4,21 +4,24 @@ import { connect } from 'react-redux'
 import Add from '../../components/todo/add'
 import TodoItem from '../../components/todo/item'
 // import actions
-import { removeTodo } from '../../actions/todo'
+import { removeTodo, getTodos } from '../../actions/todo'
 import { addDone } from '../../actions/done'
+import { Task } from '../../objects/sObjects'
 
 interface TodoProps {
-    todos: Array<string>,
+    todos: Array<Task>,
     dispatch(action: any): any;
 }
 
 export class Todo extends Component<TodoProps, {}> {
-    
+    componentWillMount(){
+        this.props.dispatch(getTodos());
+    }
     renderTodos(){
         if(this.props.todos){
             let self = this
             return this.props.todos.map((t, i) => {
-                return <TodoItem text={t} key={i} click={self.markAsDone.bind(self, i)} />
+                return <TodoItem text={t.Description} key={i} click={self.markAsDone.bind(self, i)} />
             });
         }
         return '';

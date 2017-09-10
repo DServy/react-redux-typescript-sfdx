@@ -1,21 +1,26 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux'
-import { removeDone } from '../../actions/done'
+import { removeDone, getDone } from '../../actions/done'
+import { Task } from '../../objects/sObjects'
 
 interface DoneProps{
-    done: Array<string>,
+    done: Array<Task>,
     dispatch(action: any): any;
 }
 
 export class Done extends Component<DoneProps, {}> {
 
+    componentWillMount(){
+        // mountin component, load dones
+        this.props.dispatch(getDone());
+    }
     renderDone(){
         const self = this
         if(this.props.done){
             return this.props.done.map((d, i) => {
                 return (
-                    <li key={i}>{d}<button className="remove-item btn btn-default btn-xs pull-right" onClick={self.removeFromDone.bind(self, i)}><span className="glyphicon glyphicon-remove"></span></button></li>
+                    <li key={i}>{d.Description}<button className="remove-item btn btn-default btn-xs pull-right" onClick={self.removeFromDone.bind(self, i)}><span className="glyphicon glyphicon-remove"></span></button></li>
                 );
             });
         }

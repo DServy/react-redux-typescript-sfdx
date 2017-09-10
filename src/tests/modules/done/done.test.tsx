@@ -2,14 +2,17 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store'
 import { Done }  from '../../../modules/done/done';
+import { Task } from '../../../objects/sObjects';
 // import the reducer state type
 import { GlobalState } from '../../../reducers/index'
 // import the action types
-import {RemoveDoneAction} from '../../../reducers/done'
+import { RemoveDoneAction } from '../../../reducers/done'
 
 type DoneState = {
     [done in 'done']: GlobalState[done]
 }
+const task1 = new Task();
+const task2 = new Task();
 
 const mockStore = configureMockStore<DoneState>([]);
 
@@ -19,20 +22,20 @@ it('renders without crashing while empty', () => {
 })
 
 it('renders without crashing with list', () => {
-   let done = shallow(<Done done={['one','two']} dispatch={function(){}} />)
+   let done = shallow(<Done done={[task1, task2]} dispatch={function(){}} />)
    expect(done.find('#done-items').exists()).toEqual(true)
    expect(done.find('ul').children().length).toEqual(2)
 })
 
 it('renders with a redux state', () => {
-    const store = mockStore({done: ['one','two']})
+    const store = mockStore({done: [task1, task2]})
     let done = shallow(<Done done={store.getState().done} dispatch={store.dispatch} />)
     expect(done.find('#done-items').exists()).toEqual(true)
     expect(done.find('ul').children().length).toEqual(2)
 })
 
 it('mark as done dispatches actions', () => {
-    const store = mockStore({done: ['one','two']})
+    const store = mockStore({done: [task1, task2]})
     let done = shallow(<Done done={store.getState().done} dispatch={store.dispatch} />)
     expect(done.find('#done-items').exists()).toEqual(true)
     expect(done.find('ul').children().length).toEqual(2)

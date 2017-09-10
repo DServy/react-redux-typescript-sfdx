@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store'
+import { Task } from '../../../objects/sObjects';
 import { Todo }  from '../../../modules/todo/todo';
 // import the reducer state type
 import { GlobalState } from '../../../reducers/index'
@@ -11,6 +12,11 @@ import { AddDoneAction } from '../../../reducers/done'
 type TodoState = {
     [todo in 'todo']: GlobalState[todo]
 }
+//set two constants for fun
+const todo1 = new Task();
+const todo2 = new Task();
+todo1.Description = 'one'
+todo2.Description = 'two'
 
 const mockStore = configureMockStore<TodoState>([]);
 it('renders without crashing while empty', () => {
@@ -19,14 +25,14 @@ it('renders without crashing while empty', () => {
 })
 
 it('renders without crashing with list', () => {
-   let todo = shallow(<Todo todos={['one', 'two']} dispatch={function(){}} />)
+   let todo = shallow(<Todo todos={[todo1, todo2]} dispatch={function(){}} />)
    expect(todo.find('.todolist').exists()).toEqual(true)
    expect(todo.find('ul').children().length).toEqual(2)
    expect(todo.find('.count-todos').text()).toEqual('2')
 })
 
 it('renders with a redux state', () => {
-    const store = mockStore({ todo: ['one', 'two']})
+    const store = mockStore({ todo: [todo1, todo2]})
     let todo = shallow(<Todo todos={store.getState().todo} dispatch={store.dispatch} />)
     expect(todo.find('.todolist').exists()).toEqual(true)
     expect(todo.find('ul').children().length).toEqual(2)
@@ -34,7 +40,7 @@ it('renders with a redux state', () => {
 })
 
 it('mark as done dispatches actions', () => {
-    const store = mockStore({todo: ['one','two']})
+    const store = mockStore({todo: [todo1, todo2]})
     let todo = shallow(<Todo todos={store.getState().todo} dispatch={store.dispatch} />)
     expect(todo.find('.todolist').exists()).toEqual(true)
     expect(todo.find('ul').children().length).toEqual(2)
