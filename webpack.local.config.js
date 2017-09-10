@@ -4,9 +4,6 @@ var path = require("path");
 
 var child_process = require('child_process');
 var orgInfo = JSON.parse(child_process.execSync("sfdx force:org:display --json").toString('utf8'));
-console.log(orgInfo);
-console.log(orgInfo.result.accessToken);
-
 
 module.exports = {
 	devtool: 'cheap-module-source-map',

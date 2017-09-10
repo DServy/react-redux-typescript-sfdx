@@ -23,6 +23,11 @@
     "start": "webpack-dev-server --watch-poll --https",
     "start-local": "webpack-dev-server --https --config webpack.local.config.js",
     "new-scratch-org": "sfdx force:org:create -f config/project-scratch-def.json -a scratch",
+
+    "make-scratch-default": "sfdx force:config:set defaultusername=scratch",
+    "make-dev-default": "sfdx force:config:set defaultusername=dev",
+    "make-prod-default": "sfdx force:config:set defaultusername=prod",
+    
     "bundle-app-dev": "webpack && npm run copy-bundle",
     "bundle-app-prod": "webpack --config webpack.prod.config.js && npm run copy-bundle",
     "copy-bundle": "cp ./dist/app.js ./force-app/main/default/staticresources/App.resource",
